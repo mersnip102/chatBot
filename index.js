@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
     res.send("We are live")
 })
 
-const dfff = require('dialogflow-fulfillment');
 
 app.post("/", (req, res) => {
   const query = req.body.queryResult.queryText;
