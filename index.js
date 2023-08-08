@@ -49,7 +49,7 @@ app.post('/', async (req, res) => {
     }
 
     var intentMap = new Map();
-     intentMap.set("webhookDemo", demo(agent))
+     intentMap.set("webhookDemo", demo)
     
       intentMap.set("customPayloadDemo", customPayloadDemo)
     
