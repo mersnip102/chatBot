@@ -46,15 +46,15 @@ app.post('/', async (req, res) => {
           }
         // agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
         // agent.add("Test OK")
-        agent.add(new dfff.Payload(agent, payloadData, {sendAsMessage:true, rawPayload:true}))
+        agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, { sendAsMessage: true, rawPayload: true }))
         
            
     }
 
     var intentMap = new Map();
-     intentMap.set("webhookDemo", demo)
+     intentMap.set("webhookDemo", demo(agent))
     
-     intentMap.set("customPayloadDemo", customPayloadDemo)
+     intentMap.set("customPayloadDemo", customPayloadDemo(agent))
     
     
     agent.handleRequest(intentMap)
