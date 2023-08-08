@@ -44,14 +44,14 @@ app.post('/', async (req, res) => {
               ]
             ]
           }
-          await agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
+           agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
           console.log(agent)
     }
 
     var intentMap = new Map();
-    await intentMap.set("webhookDemo", demo)
+     intentMap.set("webhookDemo", demo)
     
-    await intentMap.set("customPayloadDemo", customPayloadDemo)
+     intentMap.set("customPayloadDemo", customPayloadDemo)
     
     console.log(intentMap)
     await agent.handleRequest(intentMap)
