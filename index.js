@@ -16,47 +16,54 @@ app.get('/', (req, res) => {
     res.send("We are live")
 })
 
-app.post('/', async (req, res) => {
-    console.log(req.body)
-    const agent = new dfff.WebhookClient({
-        request: req,
-        response: res
-    })
-    function demo(agent) {
-        agent.add("Sending response from Webhook server")
-    }
+const dfff = require('dialogflow-fulfillment');
 
-    async function customPayloadDemo(agent) {
-        var payloadData = {
-            "richContent": [
+app.post("/api/webhook", (req, res) => {
+  const query = req.body.queryResult.queryText;
+
+  const agent = new dfff.WebhookClient({ request: req, response: res });
+  const intentMap = new Map();
+  const options = { sendAsMessage: true, rawPayload: true };
+
+  core
+    .universalSearch({ query })
+    .then((results) => {
+      let answer = () => {};
+      if (results.directAnswer) {
+        // highlighting the answer, returning snippet as subtitle
+
+        answer = () => {
+          const payloadData = {
+            richContent: [
               [
                 {
-                  "type": "accordion",
-                  "title": "Accordion title",
-                  "subtitle": "Accordion subtitle",
-                  "image": {
-                    "src": {
-                      "rawUrl": "https://example.com/images/logo.png"
-                    }
-                  },
-                  "text": "Accordion text"
-                }
-              ]
-            ]
-          }
-           agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
-          
-    }
+                  type: "info",
+                  title: results.directAnswer.value,
+                  subtitle: results.directAnswer.snippet.value,
+                },
+              ],
+            ],
+          };
+          agent.add(
+            new dfff.Payload("PLATFORM_UNSPECIFIED", payloadData, options)
+          );
+        };
+      } else {
+        answer = () => agent.add("Sorry! I do not have an answer for that!");
+      }
 
-    var intentMap = new Map();
-     intentMap.set("webhookDemo", demo)
-    
-     intentMap.set("customPayloadDemo", customPayloadDemo)
-    
-    
-    await agent.handleRequest(intentMap)
-})
+      intentMap.set("Default Fallback Intent", answer);
+
+      agent.handleRequest(intentMap);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    });
+});
 
 app.listen(PORT, () => {
-    console.log("Server is running, port 3333")
-})
+    console.log(`Webhook server is listening, port ${PORT}`);
+}
+  
+);
