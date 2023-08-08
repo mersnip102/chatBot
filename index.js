@@ -46,7 +46,7 @@ app.post('/', async (req, res) => {
           }
         // agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
         // agent.add("Test OK")
-        agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage=true, rawPayload=true}={}))
+        agent.add(new dfff.Payload(agent, payloadData, {sendAsMessage=true, rawPayload=true}={}))
         
            
     }
