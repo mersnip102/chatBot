@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 const dfff = require('dialogflow-fulfillment');
 
-app.post("/api/webhook", (req, res) => {
+app.post("/", (req, res) => {
   const query = req.body.queryResult.queryText;
 
   const agent = new dfff.WebhookClient({ request: req, response: res });
