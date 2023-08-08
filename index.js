@@ -44,7 +44,10 @@ app.post('/', async (req, res) => {
               ]
             ]
           }
-           agent.add(new dfff.Payload('PLATFORM_UNSPECIFIED', payloadData, {sendAsMessage: true, rawPayload: true}))
+        //    agent.add(new dfff.Payload('PLATFORM_UNSPECIFIED', payloadData, {sendAsMessage: true, rawPayload: true}))
+           agent.add(
+            new dfff.Payload(agent.UNSPECIFIED, payload, {rawPayload: true, sendAsMessage: true})
+          );
           
     }
 
