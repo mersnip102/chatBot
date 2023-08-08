@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-
+    var intentMap = new Map();
     const agent = new dfff.WebhookClient({
         request: req,
         response: res
@@ -28,33 +28,34 @@ app.post('/', (req, res) => {
     }
 
     function customPayloadDemo() {
-        var payloadData = {
-            "richContent": [
-                [
+        var payloadData = 
+            {
+                "richContent": [
+                  [
                     {
-                        "type": "accordion",
-                        "title": "Accordion title",
-                        "subtitle": "Accordion subtitle",
-                        "image": {
-                            "src": {
-                                "rawUrl": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
-                            }
-                        },
-                        "text": "Accordion text"
+                      "type": "info",
+                      "title": "Info item title",
+                      "subtitle": "Info item subtitle",
+                      "image": {
+                        "src": {
+                          "rawUrl": "https://example.com/images/logo.png"
+                        }
+                      },
+                      "actionLink": "https://example.com"
                     }
+                  ]
                 ]
-            ]
-        }
+              }
+        
         //    agent.add(new dfff.Payload('PLATFORM_UNSPECIFIED', payloadData, {sendAsMessage: true, rawPayload: true}))
         agent.add(
-            new dfff.Payload('PLATFORM_UNSPECIFIED', payloadData, { rawPayload: true, sendAsMessage: true })
+            new dfff.Payload(agent.UNSPECIFIED, payloadData, { sendAsMessage: true, rawPayload: true})
         );
 
     }
 
-    var intentMap = new Map();
+   
     intentMap.set("webhookDemo", demo)
-
 
     intentMap.set("customPayloadDemo", customPayloadDemo)
 
