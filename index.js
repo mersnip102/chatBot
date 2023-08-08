@@ -55,7 +55,7 @@ app.post('/', async (req, res) => {
      intentMap.set("customPayloadDemo", customPayloadDemo)
     
     
-    await agent.handleRequest(intentMap)
+    agent.handleRequest(intentMap)
 })
 
 app.listen(PORT, () => {
