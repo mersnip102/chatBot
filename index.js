@@ -51,7 +51,7 @@ app.post('/', async (req, res) => {
     var intentMap = new Map();
     await intentMap.set("webhookDemo", demo)
     
-     await intentMap.set("customPayloadDemo", customPayloadDemo(agent))
+     await intentMap.set("customPayloadDemo", customPayloadDemo)
     
     
     agent.handleRequest(intentMap)
