@@ -53,7 +53,7 @@ app.post('/', async (req, res) => {
     
      intentMap.set("customPayloadDemo", customPayloadDemo)
     
-    console.log(intentMap)
+    
     await agent.handleRequest(intentMap)
 })
 
