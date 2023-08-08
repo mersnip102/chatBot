@@ -19,11 +19,11 @@ app.get('/', (req, res) => {
 app.post('/', async (req, res) => {
    
     const agent = new dfff.WebhookClient({ request: req, response: res });
-    async function demo(agent) {
+     function demo(agent) {
          agent.add("Sending response from Webhook server")
     }
 
-    async function customPayloadDemo(agent) {
+     function customPayloadDemo(agent) {
         var payloadData = {
             "richContent": [
               [
