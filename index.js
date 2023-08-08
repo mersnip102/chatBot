@@ -17,49 +17,49 @@ app.get('/', (req, res) => {
     res.send("We are live")
 })
 
-app.post('/', async (req, res) => {
-    
-    const agent = await new dfff.WebhookClient({
+app.post('/', (req, res) => {
+
+    const agent = new dfff.WebhookClient({
         request: req,
         response: res
     })
-    async function demo(agent) {
-        await agent.add("Sending response from Webhook server")
+    function demo() {
+        agent.add("Sending response from Webhook server")
     }
 
-    async function customPayloadDemo(agent) {
+    function customPayloadDemo() {
         var payloadData = {
             "richContent": [
-              [
-                {
-                  "type": "accordion",
-                  "title": "Accordion title",
-                  "subtitle": "Accordion subtitle",
-                  "image": {
-                    "src": {
-                      "rawUrl": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+                [
+                    {
+                        "type": "accordion",
+                        "title": "Accordion title",
+                        "subtitle": "Accordion subtitle",
+                        "image": {
+                            "src": {
+                                "rawUrl": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+                            }
+                        },
+                        "text": "Accordion text"
                     }
-                  },
-                  "text": "Accordion text"
-                }
-              ]
+                ]
             ]
-          }
+        }
         //    agent.add(new dfff.Payload('PLATFORM_UNSPECIFIED', payloadData, {sendAsMessage: true, rawPayload: true}))
-           await agent.add(
-            new dfff.Payload("PLATFORM_UNSPECIFIED", payloadData, {rawPayload: true, sendAsMessage: true})
-          );
-          
+        agent.add(
+            new dfff.Payload('PLATFORM_UNSPECIFIED', payloadData, { rawPayload: true, sendAsMessage: true })
+        );
+
     }
 
     var intentMap = new Map();
-     intentMap.set("webhookDemo", demo)
-     
-    
-     intentMap.set("customPayloadDemo", customPayloadDemo(agent))
-    
-    
-    await agent.handleRequest(intentMap)
+    intentMap.set("webhookDemo", demo)
+
+
+    intentMap.set("customPayloadDemo", customPayloadDemo)
+
+
+    agent.handleRequest(intentMap)
 })
 
 app.listen(PORT, () => {
