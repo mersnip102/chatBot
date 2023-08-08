@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.send("We are live")
 })
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
     const agent = new dfff.WebhookClient({
         request: req,
         response: res
@@ -25,7 +25,7 @@ app.post('/', (req, res) => {
         agent.add("Sending response from Webhook server")
     }
 
-    function customPayloadDemo(agent) {
+    async function customPayloadDemo(agent) {
         var payloadData = {
             "richContent": [
               [
@@ -43,16 +43,16 @@ app.post('/', (req, res) => {
               ]
             ]
           }
-          agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
+          await agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
     }
 
     var intentMap = new Map();
-    intentMap.set("webhookDemo", demo)
+    await intentMap.set("webhookDemo", demo)
     
-    intentMap.set("customPayloadDemo", customPayloadDemo)
+    await intentMap.set("customPayloadDemo", customPayloadDemo)
     
     console.log(intentMap)
-    agent.handleRequest(intentMap)
+    await agent.handleRequest(intentMap)
 })
 
 app.listen(PORT, () => {
