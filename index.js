@@ -8,6 +8,7 @@ app.use(bodyParser.json()); //đọc body repuest gửi lên theo cấu trúc js
 app.use(bodyParser.urlencoded({ extended: true })); // khi gửi extended = true thg gặp lỗi về ký tự
 
 app.use(cors()); // accept request  cross domain
+// app.options('*', cors())
 const PORT = process.env.PORT || 3333;
 
 const dfff = require('dialogflow-fulfillment');
