@@ -44,6 +44,7 @@ app.post('/', async (req, res) => {
             ]
           }
           await agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
+          console.log(agent)
     }
 
     var intentMap = new Map();
