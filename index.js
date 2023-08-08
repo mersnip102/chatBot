@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', async (req, res) => {
-    console.log(req.body)
+    
     const agent = new dfff.WebhookClient({
         request: req,
         response: res
@@ -26,7 +26,7 @@ app.post('/', async (req, res) => {
         agent.add("Sending response from Webhook server")
     }
 
-    async function customPayloadDemo(agent) {
+    function customPayloadDemo(agent) {
         var payloadData = {
             "richContent": [
               [
@@ -54,7 +54,7 @@ app.post('/', async (req, res) => {
      intentMap.set("customPayloadDemo", customPayloadDemo)
     
     
-    await agent.handleRequest(intentMap)
+    agent.handleRequest(intentMap)
 })
 
 app.listen(PORT, () => {
