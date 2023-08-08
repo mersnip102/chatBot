@@ -20,7 +20,7 @@ app.post('/', async (req, res) => {
    
     const agent = new dfff.WebhookClient({ request: req, response: res });
     async function demo(agent) {
-        await agent.add("Sending response from Webhook server")
+         agent.add("Sending response from Webhook server")
     }
 
     async function customPayloadDemo(agent) {
@@ -43,15 +43,15 @@ app.post('/', async (req, res) => {
           }
         // agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}))
         // agent.add("Test OK")
-        await agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, { sendAsMessage: true, rawPayload: true }))
+         agent.add(new dfff.Payload(agent.UNSPECIFIED, payloadData, { sendAsMessage: true, rawPayload: true }))
         
            
     }
 
     var intentMap = new Map();
-    await intentMap.set("webhookDemo", demo)
+     intentMap.set("webhookDemo", demo(agent))
     
-     await intentMap.set("customPayloadDemo", customPayloadDemo)
+      intentMap.set("customPayloadDemo", customPayloadDemo)
     
     
     agent.handleRequest(intentMap)
