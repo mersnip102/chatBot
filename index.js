@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', async (req, res) => {
+    console.log(req.body)
     const agent = new dfff.WebhookClient({
         request: req,
         response: res
