@@ -35,6 +35,7 @@ app.post('/', express.json(), (req, res)=>{
                   "title": "Accordion title",
                   "subtitle": "Accordion subtitle",
                   "image": {
+                    
                     "src": {
                       "rawUrl": "https://example.com/images/logo.png"
                     }
